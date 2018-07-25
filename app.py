@@ -2,7 +2,6 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask_admin import Admin
 
 from dao.model import TodoList, ModifiedDate
 from dao.model import db
@@ -10,7 +9,7 @@ from dao.model import db
 from config import DevConfig
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/shoppingcart'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/todolists'
 
 db.init_app(app)
 migrate = Migrate(app, db)
