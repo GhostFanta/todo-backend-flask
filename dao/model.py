@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 class TodoList(db.Model):
     id = db.Column('todolist_id', db.Integer, primary_key=True)
-    title = db.Column('title', db.String, nullable=False)
+    title = db.Column('title', db.String(200), nullable=False)
     createdDate = db.Column('created_date', db.DateTime, nullable=False)
     lastModified = db.Column('last_modified_date', db.DateTime, nullable=False)
     items = db.Column('items', db.JSON, nullable=False)
