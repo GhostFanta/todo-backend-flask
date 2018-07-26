@@ -6,10 +6,12 @@ from flask_sqlalchemy import SQLAlchemy
 from dao.model import TodoList, ModifiedDate
 from dao.model import db
 
+from core.api import core_blueprint
+
 from config import DevConfig
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/todolists'
+app.config['SQLALCHEMY_DATABASE_URI'] = DevConfig.FLASK_DATALAYER
 
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -25,6 +27,7 @@ cors = CORS(app, origins="*", allow_headers=[
 ],
             supports_credentials=True)
 
+app.register_blueprint(core_blueprint, url_prefix='/api')
 
 if __name__ == '__main__':
     app.run()

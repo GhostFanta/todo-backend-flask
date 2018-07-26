@@ -2,6 +2,8 @@ from app import db
 from dao.model import *
 from datetime import datetime
 
+from helper.sqlhelper import *
+
 
 def create_todolist(data):
     """
@@ -31,7 +33,7 @@ def get_todolist(todolist_id):
     :param todolist_id:
     :return:
     """
-    todolist = TodoList.query.filter_by(todolist_id=todolist_id).first()
+    todolist = TodoList.query.filter_by(id=todolist_id).first()
     return todolist
 
 
@@ -42,7 +44,7 @@ def update_todolist(todolist_id, data):
     :param todolist:
     :return:
     """
-    todolist = TodoList.query.filter_by(todolist_id=todolist_id).first()
+    todolist = TodoList.query.filter_by(id=todolist_id).first()
     currentTimeStamp = datetime.utcnow()
     modifiedTime = ModifiedDate(currentTimeStamp)
     todolist.title = data.title
@@ -59,7 +61,7 @@ def delete_todolist(todolist_id):
     :return:
     """
     modifiedDates = ModifiedDate.filter_by(todolistId=todolist_id)
-    todolist = TodoList.query.filter_by(todolist_id=todolist_id).first()
+    todolist = TodoList.query.filter_by(id=todolist_id).first()
     db.session.delele(modifiedDates)
     db.session.delete(todolist)
     db.session.commit()

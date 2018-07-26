@@ -55,5 +55,3 @@ def seed_data():
             },
         ]
     )
-
-
