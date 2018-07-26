@@ -11,9 +11,10 @@ class TodoList(db.Model):
     items = db.Column('items', db.JSON, nullable=False)
     modifiedDate = db.relationship('ModifiedDate', backref='todolist')
 
-    def __init__(self, title, lastModfied):
+    def __init__(self, title, lastModfied, items):
         self.createdDate = title
         self.lastModified = lastModfied
+        self.items = items
 
     def __repr__(self):
         return '<TodoList %r>' % self.title
@@ -22,3 +23,10 @@ class TodoList(db.Model):
 class ModifiedDate(db.Model):
     id = db.Column('modified_date_id', db.Integer, primary_key=True)
     modifiedDate = db.Column('modified_date', db.DateTime, nullable=False)
+    todolistId = db.Column('todolist_id', db.ForeignKey('todo_list.todolist_id'), nullable=False)
+
+    def __init__(self, modifiedDate):
+        self.modifiedDate = modifiedDate
+
+    def __repr__(self):
+        return '<ModifiedDate %r>' % self.id
