@@ -1,7 +1,7 @@
 from flask_restful import fields
 
 todolist_fields = {
-    'todolist_id': fields.Integer,
+    'id': fields.Integer,
     'useremail': fields.String,
     'title': fields.String,
     'items': fields.String,
