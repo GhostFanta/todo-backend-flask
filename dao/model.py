@@ -5,14 +5,16 @@ db = SQLAlchemy()
 
 class TodoList(db.Model):
     id = db.Column('todolist_id', db.Integer, primary_key=True)
+    useremail = db.Column('useremail', db.String(200), nullable=False)
     title = db.Column('title', db.String(200), nullable=False)
     createdDate = db.Column('created_date', db.DateTime, nullable=False)
     lastModified = db.Column('last_modified_date', db.DateTime, nullable=False)
     items = db.Column('items', db.JSON, nullable=False)
     modifiedDate = db.relationship('ModifiedDate', backref='todolist')
 
-    def __init__(self, title, lastModfied, items):
+    def __init__(self, title, useremail, lastModfied, items):
         self.createdDate = title
+        self.useremail = useremail
         self.lastModified = lastModfied
         self.items = items
 

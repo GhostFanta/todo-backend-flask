@@ -11,6 +11,7 @@ def create_todolist(data):
     :return:
     """
     todolist = TodoList(title=data.title,
+                        useremail=data.useremail,
                         lastModfied=datetime.utcnow(),
                         items=data.items
                         )

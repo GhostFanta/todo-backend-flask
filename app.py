@@ -27,7 +27,7 @@ cors = CORS(app, origins="*", allow_headers=[
 ],
             supports_credentials=True)
 
-app.register_blueprint(core_blueprint, url_prefix='/api')
+app.register_blueprint(core_blueprint, url_prefix='/api/v1')
 
 if __name__ == '__main__':
     app.run()

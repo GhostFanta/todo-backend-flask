@@ -19,6 +19,9 @@ def abort_on_non_exist(todolist_id, item):
 
 
 class TodoList(Resource):
+    """
+    Use model column for serialization of todolist
+    """
     @marshal_with(todolist_fields, envelope='data')
     def get(self):
         """
@@ -33,7 +36,7 @@ class TodoList(Resource):
         Create new todolist
         :return:
         """
-        args = parser.parse.args()
+        # args = parser.parse.args()
         return 'Created', 201
 
 
@@ -65,5 +68,5 @@ class TodoListWithId(Resource):
         return todolist, 201
 
 
-apiserver.add_resource(TodoList, '/todolist')
-apiserver.add_resource(TodoListWithId, '/todolist/<int:todolist_id>')
+apiserver.add_resource(TodoList, '/todolists')
+apiserver.add_resource(TodoListWithId, '/todolists/<int:todolist_id>')
