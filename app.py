@@ -24,6 +24,7 @@ cors = CORS(app, origins="*", allow_headers=[
     "Access-Control-Allow-Credentials",
     "Access-Control-Allow-Headers",
     "Access-Control-Allow-Origin",
+    "Useremail",
 ],
             supports_credentials=True)
 

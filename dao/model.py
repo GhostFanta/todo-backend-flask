@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -8,13 +9,14 @@ class TodoList(db.Model):
     useremail = db.Column('useremail', db.String(200), nullable=False)
     title = db.Column('title', db.String(200), nullable=False)
     createdDate = db.Column('created_date', db.DateTime, nullable=False)
-    lastModified = db.Column('last_modified_date', db.DateTime, nullable=False)
+    lastModified = db.Column('last_modified_date', db.DateTime, onupdate=datetime.utcnow(), nullable=False)
     items = db.Column('items', db.JSON, nullable=False)
     modifiedDate = db.relationship('ModifiedDate', backref='todolist')
 
-    def __init__(self, title, useremail, lastModfied, items):
-        self.createdDate = title
+    def __init__(self, title, useremail, createdDate, lastModfied, items):
+        self.title = title
         self.useremail = useremail
+        self.createdDate = createdDate
         self.lastModified = lastModfied
         self.items = items
 
@@ -27,7 +29,8 @@ class ModifiedDate(db.Model):
     modifiedDate = db.Column('modified_date', db.DateTime, nullable=False)
     todolistId = db.Column('todolist_id', db.ForeignKey('todo_list.todolist_id'), nullable=False)
 
-    def __init__(self, modifiedDate):
+    def __init__(self, todolistId, modifiedDate):
+        self.todolistId = todolistId
         self.modifiedDate = modifiedDate
 
     def __repr__(self):
