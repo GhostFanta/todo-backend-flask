@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request
 from flask_restful import Resource, Api
-from flask_restful import reqparse, marshal_with
+from flask_restful import abort, marshal_with
 
 from dao.operation import *
 
@@ -12,12 +12,8 @@ core_blueprint = Blueprint('core', __name__)
 apiserver = Api(core_blueprint)
 
 
-def abort_on_non_exist():
-    """
-    Check Existance of a resource, terminate request when resource does not exist
-    :return:
-    """
-    pass
+def abort_on_non_exist(todolist_id):
+    abort(404, message="Todolist {} does not exist".format(todolist_id))
 
 
 class TodoList(Resource):
@@ -64,20 +60,26 @@ class TodoListWithId(Resource):
         Delete todolist accouding todolist id
         :return:
         """
-        todolist_id = todolist_id
-        delete_todolist(todolist_id)
-        return 'Deleted', 204
+        try:
+            todolist_id = todolist_id
+            delete_todolist(todolist_id)
+            return 'Deleted', 204
+        except Exception:
+            abort_on_non_exist(todolist_id)
 
     def put(self, todolist_id):
         """
         Update todolist
         :return:
         """
-        args = TodoListWithIdParser.parse_args()
-        title = args['title']
-        items = args['items']
-        update_todolist(todolist_id, {'title': title, 'items': items})
-        return 'Updated', 202
+        try:
+            args = TodoListWithIdParser.parse_args()
+            title = args['title']
+            items = args['items']
+            update_todolist(todolist_id, {'title': title, 'items': items})
+            return 'Updated', 202
+        except Exception:
+            abort_on_non_exist(todolist_id)
 
 
 apiserver.add_resource(TodoList, '/todolists')

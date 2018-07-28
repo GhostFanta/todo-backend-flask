@@ -16,6 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DevConfig.FLASK_DATALAYER
 db.init_app(app)
 migrate = Migrate(app, db)
 
+# Solve CORS problem
 cors = CORS(app, origins="*", allow_headers=[
     "Content-Type",
     "Authorization",
