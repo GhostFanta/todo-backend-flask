@@ -5,7 +5,6 @@ from flask_restful import abort, marshal_with
 
 from dao.operation import *
 
-from core.responseserializer import todolist_fields
 from core.requestparser import TodoListWithIdParser, TodoListParser
 
 core_blueprint = Blueprint('core', __name__)
@@ -21,7 +20,6 @@ class TodoList(Resource):
     Use model column for serialization of todolist
     """
 
-    @marshal_with(todolist_fields, envelope='data')
     def get(self):
         """
         Get all todolists or get by id
@@ -29,7 +27,7 @@ class TodoList(Resource):
         """
         useremail = request.headers.get('Useremail')
         data = get_todolists(useremail)
-        return data, 200
+        return [item.serialize for item in data]
 
     def post(self):
         """
@@ -45,7 +43,6 @@ class TodoList(Resource):
 
 
 class TodoListWithId(Resource):
-    @marshal_with(todolist_fields, envelope='data')
     def get(self, todolist_id):
         """
         Get Todolist with certain Id
@@ -53,7 +50,7 @@ class TodoListWithId(Resource):
         :return:
         """
         data = get_todolist(todolist_id)
-        return data, 200
+        return data.serialize, 200
 
     def delete(self, todolist_id):
         """
