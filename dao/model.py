@@ -3,7 +3,6 @@ from datetime import datetime
 
 import json
 
-
 db = SQLAlchemy()
 
 

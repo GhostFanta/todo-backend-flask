@@ -47,14 +47,15 @@ def update_todolist(todolist_id, data):
     """
     todolist = TodoList.query.filter_by(id=todolist_id).first()
     print(todolist)
-    currentTimeStamp = datetime.utcnow()
-    modifiedTime = ModifiedDate(todolistId=todolist_id, modifiedDate=currentTimeStamp)
+    current_timestamp = datetime.utcnow()
+    modified_time = ModifiedDate(todolistId=todolist_id, modifiedDate=current_timestamp)
     todolist.title = data['title']
     todolist.items = data['items']
-    todolist.lastModified = currentTimeStamp
+    todolist.lastModified = current_timestamp
     db.session.add(todolist)
-    db.session.add(modifiedTime)
+    db.session.add(modified_time)
     db.session.commit()
+    return todolist
 
 
 def delete_todolist(todolist_id):
@@ -63,9 +64,9 @@ def delete_todolist(todolist_id):
     :param todolist_id:
     :return:
     """
-    modifiedDates = ModifiedDate.query.filter_by(todolistId=todolist_id).all()
+    modified_dates = ModifiedDate.query.filter_by(todolistId=todolist_id).all()
     todolist = TodoList.query.filter_by(id=todolist_id).first()
-    for dateitem in modifiedDates:
+    for dateitem in modified_dates:
         db.session.delete(dateitem)
     db.session.delete(todolist)
     db.session.commit()
