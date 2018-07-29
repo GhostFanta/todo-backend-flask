@@ -1,7 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+import json
+
 db = SQLAlchemy()
+
+
+def dump_datetime(value):
+    if value is None:
+        return None
+    return value.strftime("%Y-%m-%d %H:%M:%S")
 
 
 class TodoList(db.Model):
@@ -20,6 +28,21 @@ class TodoList(db.Model):
         self.lastModified = lastModfied
         self.items = items
 
+    @property
+    def serialize(self):
+        """
+        Return json serialized data for the consumption of front-end
+        :return:
+        """
+        return {
+            'id': self.id,
+            'useremail': self.useremail,
+            'title': self.title,
+            'createdtime': dump_datetime(self.createdDate),
+            'lastmodifiedtime': dump_datetime(self.lastModified),
+            'items': json.loads(self.items),
+        }
+
     def __repr__(self):
         return '<TodoList %r>' % self.title
 
@@ -32,6 +55,13 @@ class ModifiedDate(db.Model):
     def __init__(self, todolistId, modifiedDate):
         self.todolistId = todolistId
         self.modifiedDate = modifiedDate
+
+    @property
+    def serialize(self):
+        return {
+            'todolistid': self.todolistId,
+            'modifieddate': self.modifiedDate
+        }
 
     def __repr__(self):
         return '<ModifiedDate %r>' % self.id
