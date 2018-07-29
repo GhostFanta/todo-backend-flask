@@ -7,8 +7,6 @@ def create_todolist(data):
     Create new todolist
     :return:
     """
-    print(data['title'])
-    print(data['useremail'])
 
     todolist = TodoList(title=data['title'],
                         useremail=data['useremail'],
@@ -18,6 +16,7 @@ def create_todolist(data):
                         )
     db.session.add(todolist)
     db.session.commit()
+    return todolist
 
 
 def get_todolists(useremail):

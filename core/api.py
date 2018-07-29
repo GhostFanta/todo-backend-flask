@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import request
 from flask_restful import Resource, Api
 from flask_restful import abort, marshal_with
+import json
 
 from dao.operation import *
 
@@ -31,15 +32,23 @@ class TodoList(Resource):
 
     def post(self):
         """
-        Create new todolist
+        Create new todolist, remember to return serialized data.
         :return:
         """
-        args = TodoListParser.parse_args()
         useremail = request.headers.get('Useremail')
-        title = args['title']
-        items = args['items']
-        create_todolist({'title': title, 'useremail': useremail, 'items': items})
-        return 'Created', 201
+        print(request.args)
+        print(request.json)
+        print(request.values)
+        print(request.get_json())
+        print(useremail)
+        print(request.form)
+        print(type(request.form))
+        a = request.form.to_dict(flat=False)
+        print(a)
+        # val = create_todolist({'title': title,
+        #                        'useremail': useremail,
+        #                        'items': items})
+        # return val.serialize, 201
 
 
 class TodoListWithId(Resource):
