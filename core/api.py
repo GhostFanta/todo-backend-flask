@@ -35,20 +35,17 @@ class TodoList(Resource):
         Create new todolist, remember to return serialized data.
         :return:
         """
+        # useremail = request.headers.get('Useremail')
+        args = TodoListParser.parse_args()
         useremail = request.headers.get('Useremail')
-        print(request.args)
-        print(request.json)
-        print(request.values)
-        print(request.get_json())
-        print(useremail)
-        print(request.form)
-        print(type(request.form))
-        a = request.form.to_dict(flat=False)
-        print(a)
-        # val = create_todolist({'title': title,
-        #                        'useremail': useremail,
-        #                        'items': items})
-        # return val.serialize, 201
+        title = args['title']
+        items = args['todoitems']
+        print(title)
+        print(items)
+        val = create_todolist({'title': title,
+                               'useremail': useremail,
+                               'items': items})
+        return val.serialize, 201
 
 
 class TodoListWithId(Resource):
