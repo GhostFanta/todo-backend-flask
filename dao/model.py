@@ -40,7 +40,7 @@ class TodoList(db.Model):
             'title': self.title,
             'createdtime': dump_datetime(self.createdDate),
             'lastmodifiedtime': dump_datetime(self.lastModified),
-            'items': self.items,
+            'items': json.loads(self.items),
         }
 
     def __repr__(self):
