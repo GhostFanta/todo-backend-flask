@@ -7,6 +7,7 @@ Please use this repo with https://github.com/GhostFanta/TODO_FE
 + Python >= 3.5
 
 ## Run & Deploy
++ Project set up: `pip install -r requirement.txt`
 + Run local instance: `flask run`(need database pre configured)
 + Run dockerized service(Ubuntu): 
 
@@ -23,8 +24,10 @@ Check Init user
 user: zichu@test1.com
 password: 123456789
 ```
-
-Due to uncertainty of network
+Hint:
+Please check `docker inspect <docker-image-hash> | grep "IPAddress"`
+if `https://github.com/GhostFanta/TODO_FE/blob/master/src/service/fixtures.js#L9`
+is not properly configured.
 
 ## Release 1
 Check PR: https://github.com/GhostFanta/TODO_BE/pull/7
