@@ -1,17 +1,15 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 
-from dao.model import TodoList, ModifiedDate
 from dao.model import db
 
 from core.api import core_blueprint
 
-from config import DevConfig
+from config import DevConfig, ProdConfig
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = DevConfig.FLASK_DATALAYER
+app.config['SQLALCHEMY_DATABASE_URI'] = ProdConfig.FLASK_DATALAYER
 
 db.init_app(app)
 migrate = Migrate(app, db)

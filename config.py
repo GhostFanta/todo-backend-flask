@@ -11,7 +11,7 @@ class Config(object):
 
 
 class ProdConfig(Config):
-    pass
+    FLASK_DATALAYER = 'mysql+pymysql://root:123456@data/todolists'
 
 
 class DevConfig(Config):
