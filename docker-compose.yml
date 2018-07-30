@@ -1,0 +1,21 @@
+version: "2"
+services:
+  web:
+    build: ./
+    links:
+      - data
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/home/TODO_BE
+  data:
+    build: ./migrations/
+    ports:
+      - "32000:3306"
+    command: --init-file /tablescript.sql
+    environment:
+      MYSQL_DATABASE: todolists
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+    - ./db:/docker-entrypoint-initdb.d/:ro

@@ -30,31 +30,34 @@ class TodoList(Resource):
         Get all todolists or get by id
         :return:
         """
-        try:
-            useremail = request.headers.get('Useremail')
-            data = get_todolists(useremail)
-            for i in data:
-                print(i)
-            return [item.serialize for item in data], 200
-        except Exception:
-            abort_on_operation_failed(Exception)
+        # try:
+        useremail = request.headers.get('Useremail')
+        data = get_todolists(useremail)
+        for i in data:
+            print(i)
+        return [item.serialize for item in data], 200
+        # except Exception:
+        #     abort_on_operation_failed(Exception)
 
     def post(self):
         """
         Create new todolist, remember to return serialized data.
         :return:
         """
-        try:
-            args = TodoListParser.parse_args()
-            useremail = request.headers.get('Useremail')
-            title = args['title']
-            items = args['items']
-            val = create_todolist({'title': title,
-                                   'useremail': useremail,
-                                   'items': items})
-            return val.serialize, 201
-        except Exception:
-            abort_on_operation_failed(Exception)
+        # try:
+        args = TodoListParser.parse_args()
+        print("Post")
+        useremail = request.headers.get('Useremail')
+        title = args['title']
+        items = args['items']
+        print(title)
+        print(items)
+        val = create_todolist({'title': title,
+                               'useremail': useremail,
+                               'items': items})
+        return val.serialize, 201
+    # except Exception:
+    #     abort_on_operation_failed(Exception)
 
 
 class TodoListWithId(Resource):
