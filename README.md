@@ -27,10 +27,4 @@ password: 123456789
 Hint:
 Please check `docker inspect <docker-image-hash> | grep "IPAddress"`
 if `https://github.com/GhostFanta/TODO_FE/blob/master/src/service/fixtures.js#L9`
-is not properly configured.
-
-## Release 1
-Check PR: https://github.com/GhostFanta/TODO_BE/pull/7
-
-## Release 2
-Check PR: https://github.com/GhostFanta/TODO_BE/pull/10
+is not properly configured
