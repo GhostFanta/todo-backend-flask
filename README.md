@@ -1,6 +1,6 @@
-# TODO_BE
+# todo-backend-flask
 > This repo serves as backend service for todolists including dockerized service
-Please use this repo with https://github.com/GhostFanta/TODO_FE
+Please use this repo with https://github.com/GhostFanta/todo-frontend-vue
 
 ## Requirement
 
