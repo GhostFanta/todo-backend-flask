@@ -28,7 +28,7 @@ jsonschema==2.6.0
 Mako==1.0.7
 MarkupSafe==1.0
 marshmallow==2.15.3
-mysql-connector-python==8.0.11
+mysql-connector-python==8.0.14
 pbr==4.1.0
 protobuf==3.6.0
 psycopg2==2.7.5
